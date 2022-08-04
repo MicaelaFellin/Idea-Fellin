@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Arima&family=Roboto+Condensed:wght@300&display=swap');
@@ -24,7 +25,7 @@
        </div>
     </header>
     
-       <nav class="navegacion">
+       <!--<nav class="navegacion">
         <ul class="menu"> 
             <li><a href="pages/empresa.html" >EMPRESA</a></li>
             <li><a href="pages/productos.html" >PRODUCTOS</a>
@@ -37,39 +38,39 @@
             </li>
             <li><a href="pages/info + como comprar.html" >INFO + COMO COMPRAR</a></li>
             <li><a href="pages/contacto.html" >CONTACTO</a></li>
-        </ul>
+        </ul>!-->
+
+        <div class="container">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="../pages/empresa.html">Empresa</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="navbar-brand" href="../pages/productos.html">Productos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="navbar-brand" href="../pages/info + como comprar.html">Info + como comprar</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="navbar-brand" href="../pages/contacto.html">Contacto</a>
+                  </li>
+                </ul>
+                <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+            </div>             
         </nav>
+        </div>
         
     <section>
-        
-    <!--</section class= fotos>
-
-    <section>table class="tabla" border="1" cellpadding="3" cellspacing="8">
-        <th><b>PRODUCTO</b></th>
-        <th><b>DESCRIPCIÓN</b></th>
-        <th><b>PRECIO</b></th>
-        <th><b>IMAGEN</b></th>
-        <tr>
-            <td><b>ESCRITORIO BLANCO</b></td>
-            <td>Realizado en madera y melamina blanca</td>
-            <td><b>$30.000</b></td>
-            <td> <img src="media/escritorio blanco.jpg"  alt="Escritorio blanco"  width="300px" height="300px"></td>
-        </tr>
-        <tr>
-            <td><b>ESCRITORIO MADERA</b></td>
-            <td>Realizado en madera y melamina beige</td>
-            <td><b>$40.000</b></td>
-            <td> <img src="media/Escritorio-paraiso.jpg" alt="Escritorio madera" width="300px" height="300px"></td>
-        </tr>
-        <tr>
-            <td><b>ESCRITORIO NEGRO</b></td>
-            <td>Realizado en madera y melamina negra</td>
-            <td><b>$50.000</b></td>
-            <td> <img src="media/escritorio negro.jpg" alt="Escritorio negro"  width="300px" height="300px"></td>
-        </tr>
-    </table>!-->
-
-<div id="grilla">
+    
+    <!--<div id="grilla">
         <aside id="divAnim" class="border">ELIGE, PAGA Y RECIBE TU PEDIDO SIN MOVERTE DE TU CASA</aside>
     <section id="productos" class="border">
         <div>Escritorio Blanco</div>
@@ -83,7 +84,99 @@
         <div>Realizado en madera y estructura de hierro <br> $50.000 </br></div>
         <div class="item"><button><a>Comprar</a></button></div>
         <div class="item"><button><a>Comprar</a></button></div>
-        <div class="item"><button><a>Comprar</a></button></div>
+        <div class="item"><button><a>Comprar</a></button></div>!-->
+
+        <aside id="divAnim" class="border">ELIGE, PAGA Y RECIBE TU PEDIDO SIN MOVERTE DE TU CASA</aside>
+
+        <div class="container-fluid">
+            <div class="row p-5 pb-2">
+                <div class="col-sm-12 col-md-6 col-xl-4">                    
+                    
+                        <div class="card">
+                            <img src="media/escritorio blanco.jpg" class="card-img-top" alt="Escritorio Blanco">
+                            <div class="card-body">
+                            <h5 class="card-title">Escritorio Blanco</h5>
+                            <p class="card-text">Realizado en madera y melamina blanca.</p>
+                            </div>
+                            <div class="card-footer">
+                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="card">
+                            <img src="media/Escritorio-paraiso.jpg" class="card-img-top" alt="Escritorio Madera">
+                            <div class="card-body">
+                            <h5 class="card-title">Escritorio Madera</h5>
+                            <p class="card-text">Realizado en madera y melamina beige.</p>
+                            </div>
+                            <div class="card-footer">
+                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="card">
+                            <img src="media/escritorio negro.jpg" class="card-img-top" alt="Escritorio Negro">
+                            <div class="card-body">
+                            <h5 class="card-title">Escritorio Negro</h5>
+                            <p class="card-text">Realizado en madera y estructura de hierro.</p>
+                            </div>
+                            <div class="card-footer">
+                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+
+            <div class="row p-5">
+                <div class="col-sm-12 col-md-6 col-xl-4">
+                    
+                    
+                        <div class="card">
+                            <img src="media/escritorio blanco.jpg" class="card-img-top" alt="Escritorio Blanco">
+                            <div class="card-body">
+                            <h5 class="card-title">Escritorio Blanco</h5>
+                            <p class="card-text">Realizado en madera y melamina blanca.</p>
+                            </div>
+                            <div class="card-footer">
+                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="card">
+                            <img src="media/Escritorio-paraiso.jpg" class="card-img-top" alt="Escritorio Madera">
+                            <div class="card-body">
+                            <h5 class="card-title">Escritorio Madera</h5>
+                            <p class="card-text">Realizado en madera y melamina beige.</p>
+                            </div>
+                            <div class="card-footer">
+                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="card">
+                            <img src="media/escritorio negro.jpg" class="card-img-top" alt="Escritorio Negro">
+                            <div class="card-body">
+                            <h5 class="card-title">Escritorio Negro</h5>
+                            <p class="card-text">Realizado en madera y estructura de hierro.</p>
+                            </div>
+                            <div class="card-footer">
+                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+
+        </div>
     </section>
 </div>
 
@@ -112,19 +205,44 @@
        </section>!-->
 
            
-    <footer class="img"> 
-        <div>
-            <b>SHOWROOM</b>
-            <br>
+    <footer > 
+        <!--<div class="img">
             <a href="https://www.google.com.ar/maps/place/Shopping+Eldorado/@-23.5727248,-46.6966369,18.25z/data=!4m5!3m4!1s0x94ce57a2da1311d7:0x15c6c7f0360ece1a!8m2!3d-23.5725766!4d-46.6960077" target=_blank><img src="media/ubicacion.png" alt="mapa" width="350px" height="200px"></a>
-        </div>
+            <b>SHOWROOM</b>
+        </div>!-->
 
-         <div class="whatsapp">
-                <img src="media/whatsapp.png" width="60px" height="60px" alt="icono-wsp">                
-                <a href="https://api.whatsapp.com/send?phone=1111111"></a>                   
-        </div>        
+        <div class="container-fluid">
+            <div class="row p-5 pb-2 bg-secondary text-white">
+
+                <div class="col-xs-12 col-md-6 col-lg-4">
+                    <p class="h5 mb-3">Contacto</p>
+                    <a class="text-white text-decoration-none" href="pages/contacto.html">Consulta tus dudas</a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4">
+                    <p class="h5 mb-3">Redes Sociales</p>
+                    <a class="text-white text-decoration-none" href="#"> <img class="d-inline-block align-top" src="media/Instagram_logo_2022.svg.png" width="30" height="30" alt="Logo Whatsapp"></a>
+                    <a class="text-white text-decoration-none" href="#"> <img class="d-inline-block align-top" src="media/facebook-logo.png" width="30" height="30" alt="Logo Facebook"></a>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-4">
+                    <p class="h5 mb-3">Showroom</p>
+                    <a href="https://www.google.com.ar/maps/place/Shopping+Eldorado/@-23.5727248,-46.6966369,18.25z/data=!4m5!3m4!1s0x94ce57a2da1311d7:0x15c6c7f0360ece1a!8m2!3d-23.5725766!4d-46.6960077"><img src="media/ubicacion.png" alt="mapa" width="150px" height="100px"></a>
+                </div> 
+                <div class="col-xs-12 pt-4">
+                    <p class="text-white text-center">Copyright - Todos los derechos reservados © 2022</p>
+                </div>
+            </div>
+        </div>    
+
+        <div class="whatsapp">          
+            <a href="https://api.whatsapp.com/send?phone=1111111">
+            <img src="../media/whatsapp.png" width="60px" height="60px" alt="icono-wsp">      
+            </a>                   
+        </div>
+        
+
     </footer>
-    
-</body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+ </body>
 
 </html>

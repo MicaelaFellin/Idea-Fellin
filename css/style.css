@@ -87,27 +87,16 @@ list-style: none;
     align-items: center;
 }
 
-.footer {
+/*.footer {
     width: 10px;
     height: 20px;
-}
-
-/*.tabla {
-    display: flex;
-    justify-content: center;
-    background-color: rgba(226, 195, 166, 0.445);
-    font-size: 20px
-}*/
-
-/*table {
-    object-fit: contain;
 }*/
 
 /* HTML EMPRESA*/
 
 .empresa {
     text-align: center;
-    background-color: rgba(226, 195, 166, 0.445);
+    
 }
 
 p {
@@ -127,7 +116,7 @@ h1 {
     align-items: center;
 }
 
-button {
+/*button {
     display: flex;
     font-size: 15px;
     font-weight: bold;
@@ -136,8 +125,7 @@ button {
     box-shadow: 2px 2px 5px;
     color: rgb(14, 13, 13);
     background-color: rgba(211, 197, 184, 0.788);
-    
-}
+}*/
 
 .whatsapp {
     position: fixed;
@@ -153,7 +141,7 @@ button {
 
 /* GRIDS */
 
-@media screen and (min-width: 320px) {
+/*@media screen and (min-width: 320px) {
 
     #informacion div {
         border: solid 1px;
@@ -248,7 +236,7 @@ button {
     
     #productos .item {
         justify-self: center;
-        background-color: none; /* no funciona*/
+        background-color: none;
         border: none
     }
 }
@@ -349,10 +337,10 @@ section #productos {
 
 #productos .item {
     justify-self: center;
-    background-color: none; /* no funciona*/
+    background-color: none;
     border: none
 }
-}
+}*/
 
 #divAnim {
     animation-name: efecto;
@@ -383,5 +371,4 @@ section #productos {
     }
 
 }
-
 
