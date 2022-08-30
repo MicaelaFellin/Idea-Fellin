@@ -128,7 +128,7 @@ h1, h2 {
         
         height: auto;
         width: auto;
-        align-items: center;
+        align-items: auto;
         align-content: center;
         column-gap: 40px;
         
@@ -146,8 +146,8 @@ h1, h2 {
 
 @media screen and (min-width: 300px) {
     .img-emp {
-        margin-left: 40px;
-        align-items: center;
+        
+        align-items: auto;
     }
     .nosotros, .objetivos {
         margin: 40px;
