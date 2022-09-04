@@ -119,36 +119,44 @@ h1, h2 {
     display:flex;
     flex-wrap: wrap;
 }
+#grilla {
+    display: grid;
+    margin: 40px;
+}
+
+@media screen and (min-width: 320px) {
+    #grilla {        
+        grid-template-columns: 100%;
+        align-items: auto;
+        align-content: auto;
+        row-gap: 40px;
+        
+    }
+    .historia {
+        
+        width: auto;     
+        justify-content: auto;
+        justify-self: auto;
+        align-self: center;
+    }
+}
 
 @media screen and (min-width: 1200px) {
     #grilla {
-        display: grid;
-        margin: 40px;
-        grid-template-columns: 30% 30% 30%;
-        height: auto;
-        width: auto;
+        grid-template-columns: auto 35% 35%;
         align-items: auto;
         align-content: center;
-        column-gap: 40px;
+        column-gap: 50px;
         
-        .img-emp {
-            align-items: center;
-            align-self: center;
-            justify-self: auto;
+        
+        .historia {
+            width: auto;
         }
         .nosotros, .objetivos {
             align-self: center;
+            padding: 10px;
         }
         
     }
 }
 
-@media screen and (min-width: 300px) {
-    .img-emp {
-        
-        align-items: auto;
-    }
-    .nosotros, .objetivos {
-        margin: 40px;
-    }
-}

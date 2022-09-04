@@ -164,32 +164,38 @@ h1, h2 {
   flex-wrap: wrap;
 }
 
-@media screen and (min-width: 1200px) {
+#grilla {
+  display: grid;
+  margin: 40px;
+}
+
+@media screen and (min-width: 320px) {
   #grilla {
-    display: grid;
-    margin: 40px;
-    grid-template-columns: 30% 30% 30%;
-    height: auto;
-    width: auto;
+    grid-template-columns: 100%;
     align-items: auto;
-    align-content: center;
-    -moz-column-gap: 40px;
-         column-gap: 40px;
+    align-content: auto;
+    row-gap: 40px;
   }
-  #grilla .img-emp {
-    align-items: center;
-    align-self: center;
+  .historia {
+    width: auto;
+    justify-content: auto;
     justify-self: auto;
-  }
-  #grilla .nosotros, #grilla .objetivos {
     align-self: center;
   }
 }
-@media screen and (min-width: 300px) {
-  .img-emp {
+@media screen and (min-width: 1200px) {
+  #grilla {
+    grid-template-columns: auto 35% 35%;
     align-items: auto;
+    align-content: center;
+    -moz-column-gap: 50px;
+         column-gap: 50px;
   }
-  .nosotros, .objetivos {
-    margin: 40px;
+  #grilla .historia {
+    width: auto;
+  }
+  #grilla .nosotros, #grilla .objetivos {
+    align-self: center;
+    padding: 10px;
   }
 }/*# sourceMappingURL=style.css.map */
