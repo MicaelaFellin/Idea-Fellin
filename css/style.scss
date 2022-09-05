@@ -128,9 +128,9 @@ h1, h2 {
     .grilla {   
         display: flex;     
         flex-direction: column;
-        align-items: auto;
         justify-content: center;
-        row-gap: 40px;
+        align-items: center;
+        margin: 1rem;
     }
     .historia {
         width: auto;     
@@ -144,7 +144,9 @@ h1, h2 {
 
     .grilla {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         column-gap: 50px;
              
         .historia {
