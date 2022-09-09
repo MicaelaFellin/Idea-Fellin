@@ -71,7 +71,6 @@ h1, h2 {
     font-size: 21px;
     background-color: rgba(241, 213, 161, 0.822);
     border-radius: 20px;
-    
 }
 
 .wow {
@@ -119,12 +118,13 @@ h1, h2 {
     display:flex;
     flex-wrap: wrap;
 }
+
 .grilla {
     display: grid;
     margin: 40px;
 }
 
-@media screen and (min-width: 320px), (max-width: 1000px) {
+@media screen and (min-width: 320px), (max-width: 766px) {
     .grilla {   
         display: flex;     
         flex-direction: column;
@@ -132,29 +132,40 @@ h1, h2 {
         align-items: center;
         margin: 1rem;
     }
+    
     .historia {
         width: auto;     
         justify-content: auto;
         justify-self: auto;
         align-self: center;
+        
+    .img-fluid {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
     }
 }
 
 @media screen and (min-width: 767px), (max-width: 1200px) {
-
     .grilla {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         column-gap: 50px;
-             
+        
         .historia {
             width: auto;
         }
+        
         .nosotros, .objetivos {
             align-self: center;
             padding: 10px;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            background-color: rgba(245, 245, 245, 0.712);
+            border-radius: 20px;
         }
     }
 }
