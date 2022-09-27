@@ -37,6 +37,7 @@ while(opcion != "4"){
         if(cantidadProducto1 <= stockProducto1){
             precio(cantidadProducto1, precioProducto1)
             alert("El total de su compra es: " + "$" + precioTotal)
+            stockProducto1 = stockProducto1 - cantidadProducto1
             let algoMas = prompt("¿Desea comprar algo mas?: \n- si \n- no")
             if (algoMas == "si"){
                 opcion = prompt("Ingrese que escritorio desea comprar: \n- Escritorio clásico: 1 \n- Escritorio estilo industrial: 2 \n- Escritorio regulable en altura: 3 \n- Salir: 4")
@@ -55,6 +56,7 @@ while(opcion != "4"){
         if(cantidadProducto2 <= stockProducto2){
             precio(cantidadProducto2, precioProducto2)
             alert("El total de su compra es: " + "$" + precioTotal)
+            stockProducto2 = stockProducto2 - cantidadProducto2
             let algoMas = prompt("¿Desea comprar algo mas?: \n- si \n- no")
             if (algoMas == "si"){
                 opcion = prompt("Ingrese que escritorio desea comprar: \n- Escritorio clásico: 1 \n- Escritorio estilo industrial: 2 \n- Escritorio regulable en altura: 3 \n- Salir: 4")
@@ -73,6 +75,7 @@ while(opcion != "4"){
         if(cantidadProducto3 <= stockProducto3){
             precio(cantidadProducto3, precioProducto3)
             alert("El total de su compra es: " + "$" + precioTotal)
+            stockProducto3 = stockProducto3 - cantidadProducto3
             let algoMas = prompt("¿Desea comprar algo mas?: \n- si \n- no")
             if (algoMas == "si"){
                 opcion = prompt("Ingrese que escritorio desea comprar: \n- Escritorio clásico: 1 \n- Escritorio estilo industrial: 2 \n- Escritorio regulable en altura: 3 \n- Salir: 4")
