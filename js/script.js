@@ -92,6 +92,8 @@ while(opcion != "4"){
     
 }
 
+// Saludo final
+
 alert("Gracias por visitar nuestro sitio!")
 
 
