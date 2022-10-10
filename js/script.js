@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+// Productos - Precios - Stock, para sitio web de venta de escritorios personalizados
+=======
 // Productos - Precios - Stock
+>>>>>>> 4482c068c8108068cfa14bd8ae2ada3a3a4c1c64
 
 // Escritorios clásicos
 let nombreProducto1 = "Escritorio clásico"
@@ -17,7 +21,11 @@ let stockProducto3 = 3
 
 let precioTotal = 0
 
+<<<<<<< HEAD
+// Mensaje de Bienvenida para los usuarios
+=======
 // Mensaje de Bienvenida
+>>>>>>> 4482c068c8108068cfa14bd8ae2ada3a3a4c1c64
 
 alert("Bienvenidos a The Wood Store, a continuacion selecciona los articulos que desees comprar")
 
@@ -37,7 +45,10 @@ while(opcion != "4"){
         if(cantidadProducto1 <= stockProducto1){
             precio(cantidadProducto1, precioProducto1)
             alert("El total de su compra es: " + "$" + precioTotal)
-            stockProducto1 = stockProducto1 - cantidadProducto1
+<<<<<<< HEAD
+            stockProducto1 = (stockProducto1 - cantidadProducto1)
+=======
+>>>>>>> 4482c068c8108068cfa14bd8ae2ada3a3a4c1c64
             let algoMas = prompt("¿Desea comprar algo mas?: \n- si \n- no")
             if (algoMas == "si"){
                 opcion = prompt("Ingrese que escritorio desea comprar: \n- Escritorio clásico: 1 \n- Escritorio estilo industrial: 2 \n- Escritorio regulable en altura: 3 \n- Salir: 4")
@@ -56,7 +67,10 @@ while(opcion != "4"){
         if(cantidadProducto2 <= stockProducto2){
             precio(cantidadProducto2, precioProducto2)
             alert("El total de su compra es: " + "$" + precioTotal)
-            stockProducto2 = stockProducto2 - cantidadProducto2
+<<<<<<< HEAD
+            stockProducto2 = (stockProducto2 - cantidadProducto2)
+=======
+>>>>>>> 4482c068c8108068cfa14bd8ae2ada3a3a4c1c64
             let algoMas = prompt("¿Desea comprar algo mas?: \n- si \n- no")
             if (algoMas == "si"){
                 opcion = prompt("Ingrese que escritorio desea comprar: \n- Escritorio clásico: 1 \n- Escritorio estilo industrial: 2 \n- Escritorio regulable en altura: 3 \n- Salir: 4")
@@ -75,7 +89,10 @@ while(opcion != "4"){
         if(cantidadProducto3 <= stockProducto3){
             precio(cantidadProducto3, precioProducto3)
             alert("El total de su compra es: " + "$" + precioTotal)
-            stockProducto3 = stockProducto3 - cantidadProducto3
+<<<<<<< HEAD
+            stockProducto3 = (stockProducto3 - cantidadProducto3)
+=======
+>>>>>>> 4482c068c8108068cfa14bd8ae2ada3a3a4c1c64
             let algoMas = prompt("¿Desea comprar algo mas?: \n- si \n- no")
             if (algoMas == "si"){
                 opcion = prompt("Ingrese que escritorio desea comprar: \n- Escritorio clásico: 1 \n- Escritorio estilo industrial: 2 \n- Escritorio regulable en altura: 3 \n- Salir: 4")
@@ -94,8 +111,6 @@ while(opcion != "4"){
     }
     
 }
-
-// Saludo final
 
 alert("Gracias por visitar nuestro sitio!")
 
