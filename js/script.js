@@ -1,58 +1,124 @@
 // Productos - Precios - Stock
 
-/* VARIABLES ANTES DE APLICAR OBJETOS
+const listaProductos =
+    [
+        {
+            "id": 1,
+            "nombre": "Elemento1",
+            "img": "media/regulable-blanco.jpg",
+            "desc":"Realizado en hierro blanco y madera.",
+            "precio": 1,
+            "stock": 1
+        },
+        {
+            "id": 2,
+            "nombre": "Elemento2",
+            "img": "media/regulable-blanco.jpg",
+            "desc":"Realizado en hierro blanco y madera.",
+            "precio": 1,
+            "stock": 1
+        },
+        {
+            "id": 3,
+            "nombre": "Elemento3",
+            "img": "media/regulable-blanco.jpg",
+            "desc":"Realizado en hierro blanco y madera.",
+            "precio": 1,
+            "stock": 1
+        },
+        {
+            "id": 4,
+            "nombre": "Elemento4",
+            "img": "media/regulable-blanco.jpg",
+            "desc":"Realizado en hierro blanco y madera.",
+            "precio": 1,
+            "stock": 1
+        },
+        {
+            "id": 5,
+            "nombre": "Elemento5",
+            "img": "media/regulable-blanco.jpg",
+            "desc":"Realizado en hierro blanco y madera.",
+            "precio": 1,
+            "stock": 1
+        },
+        {
+            "id": 6,
+            "nombre": "Elemento6",
+            "img": "media/regulable-blanco.jpg",
+            "desc":"Realizado en hierro blanco y madera.",
+            "precio": 1,
+            "stock": 1
+        },
+        
+    ]
 
-// Escritorios clásicos
-let nombreProducto1 = "Escritorio clásico"
-let precioProducto1 = 60000
-let stockProducto1 = 5
 
-// Escritorios estilo industrial
-let nombreProducto2 = "Escritorio estilo industrial"
-let precioProducto2 = 80000
-let stockProducto2 = 5
 
-// Escritorios regulables
-let nombreProducto3 = "Escritorio regulable en altura"
-let precioProducto3 = 200000
-let stockProducto3 = 3
+console.log(listaProductos)
+let catalog = document.getElementById('itemList')
 
-let precioTotal = 0
-*/
+listaProductos.forEach((prod) =>{
 
-// Objetos y Función constructora
+    // <div class="col-sm-12 col-md-6 col-xl-4"> //container
+    //     <div class="card mb-3 m-3"> //margen
+    //         <img src="media/regulable-blanco.jpg" class="card-img-top" alt="Regulable Blanco"> //imagen
+    //         <div class="card-body"> //cardBody
+    //             <h5 class="card-title text-center">Escritorio Regulable Blanco</h5> //title
+    //             <p class="card-text">Realizado en hierro blanco y madera.</p> //text
+    //         </div>
+    //         <div class="card-footer text-center"> //footer
+    //             <button type="button" class="btn btn-primary btn-sm">Comprar</button> //button
+    //         </div>
+    //     </div>
+    // </div>
 
-function Producto(nombre, precio, stock){
-    this.nombre = nombre;
-    this.precio = precio;
-    this.stock = stock;
-    // Agregando método para hacer cálculo de stock
-    
-    this.restarStock = function(cantidad){
-        this.stock -= cantidad
-    }
-}
+//Page Frame
+let container = document.createElement('div')
+container.classList.add('col-sm-12', 'col-md-6', 'col-xl-4')
+//Card Frame
+let margen = document.createElement('div')
+margen.classList.add('card', 'mb-3', 'm-3')
+//Image
+let imagen = document.createElement('img')
+imagen.classList.add('card-img-top')
+imagen.setAttribute('src',prod.img)
+imagen.setAttribute('alt',prod.nombre)
+//Card body
+let cardBody = document.createElement('div')
+cardBody.classList.add('card-body')
+//Card Title
+let title = document.createElement('h5')
+title.classList.add('card-title', 'text-center')
+title.innerText = prod.nombre
+//Card text
+let text = document.createElement('p')
+text.classList.add('card-text')
+text.innerText = prod.desc
+// footer
+let footer = document.createElement('div')
+footer.classList.add('card-footer', 'text-center')
 
-let Producto1 = new Producto("Escritorio clasico", 60000, 5)
-let Producto2 = new Producto("Escritorio estilo industrial", 80000, 5)
-let Producto3 = new Producto("Escritorio regulable en altura", 200000, 3)
+//Button
+let button = document.createElement('button')
+button.classList.add('btn', 'btn-primary', 'btn-sm')
+button.innerText = 'Comprar'
+button.type = 'button'
+button.setAttribute('mark', prod.id)
 
-// Arrays
+footer.append(button)
 
-let listaProductos = [Producto1, Producto2, Producto3]
+cardBody.append(title)
+cardBody.append(text)
 
-// Método de array
-console.log(listaProductos.length)
+margen.append(imagen)
+margen.append(cardBody)
+margen.append(footer)
+container.append(margen)
+catalog.append(container)
+})
 
-/* Forma para agregar productos nuevos con stock a la listaNombres
-let listaNombres = []
-for(const prod of listaProductos){
-    if(prod.stock > 0){
-        listaNombres.push(prod.nombre)
-}
-}*/
 
-// Funciones de orden superior y método de búsqueda de arrays FILTER / MAP / SOME
 
 let listaProductosConStock = listaProductos.filter((prod) => prod.stock > 0) //En nuestro caso los stocks son mayores a cero, por lo tanto se muestran en el prompt.
 
@@ -88,7 +154,7 @@ let Producto3 = {
 // Mensaje de Bienvenida
 // Aplicando método Join al array listaNombres
 
-alert("Bienvenidos a The Wood Store, estos son nuestros escritorios disponibles: \n - " + listaNombres.join ("\n - "))
+// alert("Bienvenidos a The Wood Store, estos son nuestros escritorios disponibles: \n - " + listaNombres.join ("\n - "))
 
 // Ciclo de compra con WHILE y condicional IF
 
@@ -96,7 +162,7 @@ function precio(cantidad, precio){
     precioTotal += (cantidad * precio)
 }
 
-let opcion = prompt("Ingrese que escritorio desea comprar: \n- Escritorio clásico: 1 \n- Escritorio estilo industrial: 2 \n- Escritorio regulable en altura: 3 \n- Salir: 4")
+// let opcion = prompt("Ingrese que escritorio desea comprar: \n- Escritorio clásico: 1 \n- Escritorio estilo industrial: 2 \n- Escritorio regulable en altura: 3 \n- Salir: 4")
 
 while(opcion != "4"){
 
@@ -169,7 +235,7 @@ while(opcion != "4"){
 
 // Saludo final
 
-alert("Gracias por visitar nuestro sitio!")
+// alert("Gracias por visitar nuestro sitio!")
 
 
 
