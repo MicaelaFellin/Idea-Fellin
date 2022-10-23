@@ -52,12 +52,67 @@ const listaProductos =
         },
 
     ]
+// CREAR PRODUCTO Y AGRERLO A LA LISTA DE PRODUCTOS
+function agregarProducto(nombre, img, desc, precio, stock) {
+    let producto = {}
+    producto['id'] = listaProductos.length + 1
+    producto['nombre'] = nombre
+    producto['img'] = img
+    producto['desc'] = desc
+    producto['precio'] = precio
+    producto['stock'] = stock
+    listaProductos.push(producto)
+}
+
+agregarProducto('Escritorio Violeta','media/esquinero.jpg','Esquinero',258258,5)
 
 // OBTENEMOS ELEMENTOS DEL HTML (CARDS-CARRITO-TOTAL)
 
 let catalog = document.getElementById('itemList')
 let cart = document.getElementById('cart')
 let total= document.getElementById('total')
+let borrarCarrito = document.getElementById('borrarCarrito')
+borrarCarrito.addEventListener('click',borrarTodo)
+let searchInput = document.getElementById('searchInput')
+searchInput.addEventListener('input',buscar)
+
+
+
+function borrarTodo(event){
+    cartList = []
+    saveCartToStorage()
+    renderCart()
+
+}
+let listaProductosFiltrada = listaProductos
+
+// MANEJADOR DE EVENTO INPUT
+
+function buscar(event) {
+    if (searchInput.value !== '') {
+        listaProductosFiltrada = [] // BORRA LOS ELEMENTOS PARA QUE NO SE REPITAN EN LA BUSQUEDA POR CADA PALABRA
+
+        let searchList = searchInput.value.toLowerCase().split(" ")
+
+        searchList.forEach((palabra) => {
+
+            if (palabra !== '') {
+                listaProductosFiltrada = listaProductosFiltrada.concat(listaProductos.filter((prod) => {
+                    return prod.desc.toLowerCase().search(palabra) >= 0
+                }))
+
+            }
+
+        })
+    } else {
+        listaProductosFiltrada = listaProductos
+    }
+    listaProductosFiltrada = [...new Set(listaProductosFiltrada)]
+    listaProductosFiltrada.sort((a, b) => a.id - b.id) //ordenar lista segun Id
+    renderListaProductos(listaProductosFiltrada)
+
+}
+
 
 // LISTA DE CARRITO
 
@@ -65,12 +120,15 @@ let cartList = []
 let precioTotal = 0
 
 // CARGA DE STORAGE Y ACTUALIZACIÓN DEL CARRITO
+renderListaProductos(listaProductos)
 loadCartFromStorage()
 renderCart()
 
 // CREANDO LAS CARDS DESDE JS
+function renderListaProductos(lista){
+    catalog.innerHTML= ''
 
-listaProductos.forEach((prod) => {
+    lista.forEach((prod) => {
 
     // <div class="col-sm-12 col-md-6 col-xl-4"> //container
     //     <div class="card mb-3 m-3"> //margen
@@ -107,6 +165,10 @@ listaProductos.forEach((prod) => {
     let text = document.createElement('p')
     text.classList.add('card-text')
     text.innerText = prod.desc
+
+    let precio = document.createElement('p')
+    precio.classList.add('card-text','cardPrecio')
+    precio.innerText = `$${prod.precio.toLocaleString()}`
     // footer
     let footer = document.createElement('div')
     footer.classList.add('card-footer', 'text-center')
@@ -116,25 +178,26 @@ listaProductos.forEach((prod) => {
     button.classList.add('btn', 'btn-primary', 'btn-sm')
     button.innerText = 'Comprar'
     button.type = 'button'
-    button.setAttribute('mark', prod.id)
+    button.setAttribute('productid', prod.id)
+    button.setAttribute('id', `btnComprar-${prod.id}`)
     button.addEventListener('click', addItem)
 
     footer.append(button)
 
     cardBody.append(title)
     cardBody.append(text)
-
+    cardBody.append(precio)
     margen.append(imagen)
     margen.append(cardBody)
     margen.append(footer)
     container.append(margen)
     catalog.append(container)
 })
-
+}
 // MANEJADOR DE EVENTO BOTON COMPRAR Y GUARDADO EN STORAGE
 
 function addItem(event) {
-    cartList.push(event.target.getAttribute('mark'))
+    cartList.push(event.target.getAttribute('productid'))
     renderCart()
     saveCartToStorage()
 }
@@ -181,7 +244,7 @@ function renderCart() {
         //Card text
         let text = document.createElement('p')
         text.classList.add('card-text')
-        text.innerText = `$${item[0].precio*cantidad}`
+        text.innerText = `$${(item[0].precio*cantidad).toLocaleString()}`
 
 
         //Button frame
@@ -222,7 +285,7 @@ function renderCart() {
         cart.append(container)
 
     })
-    total.innerText = `Total: $${calcularTotal()}`
+    total.innerText = `Total: $${calcularTotal().toLocaleString()}`
 }
 
 // MANEJADOR DE EVENTO PARA ELIMINAR PRODUCTOS
