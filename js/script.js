@@ -1,4 +1,4 @@
-// Productos - Precios - Stock
+// ARRAY DE PRODUCTOS
 
 const listaProductos =
     [
@@ -53,16 +53,23 @@ const listaProductos =
 
     ]
 
+// OBTENEMOS ELEMENTOS DEL HTML (CARDS-CARRITO-TOTAL)
 
-
-console.log(listaProductos)
 let catalog = document.getElementById('itemList')
 let cart = document.getElementById('cart')
 let total= document.getElementById('total')
+
+// LISTA DE CARRITO
+
 let cartList = []
 let precioTotal = 0
+
+// CARGA DE STORAGE Y ACTUALIZACIÓN DEL CARRITO
 loadCartFromStorage()
 renderCart()
+
+// CREANDO LAS CARDS DESDE JS
+
 listaProductos.forEach((prod) => {
 
     // <div class="col-sm-12 col-md-6 col-xl-4"> //container
@@ -124,11 +131,16 @@ listaProductos.forEach((prod) => {
     catalog.append(container)
 })
 
+// MANEJADOR DE EVENTO BOTON COMPRAR Y GUARDADO EN STORAGE
+
 function addItem(event) {
     cartList.push(event.target.getAttribute('mark'))
     renderCart()
     saveCartToStorage()
 }
+
+
+// ACTUALIZAR CARRITO
 
 function renderCart() {
     cart.innerHTML = ''
@@ -213,6 +225,8 @@ function renderCart() {
     total.innerText = `Total: $${calcularTotal()}`
 }
 
+// MANEJADOR DE EVENTO PARA ELIMINAR PRODUCTOS
+
 function eliminarTodos(event) {
     cartList = cartList.filter((item) => {
         return item != event.target.dataset.id
@@ -222,11 +236,15 @@ function eliminarTodos(event) {
     saveCartToStorage()
 }
 
+// MANEJADOR DE EVENTO PARA ELIMINAR 1 UNIDAD DE PRODUCTO
+
 function removerElemento(event) {
     cartList.splice(cartList.indexOf(event.target.dataset.id), 1)
     renderCart()
     saveCartToStorage()
 }
+
+// CALCULO DE PRECIO TOTAL DE COMPRA
 
 function calcularTotal() {
     return cartList.reduce((total, id) => {
@@ -237,12 +255,7 @@ function calcularTotal() {
     },0)
 }
 
-
-
-
-function precio(cantidad, precio) {
-    precioTotal += (cantidad * precio)
-}
+// JSON Y STORAGE
 
 function saveCartToStorage(){
     localStorage.setItem('cartList', JSON.stringify(cartList))
