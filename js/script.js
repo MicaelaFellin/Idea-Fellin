@@ -4,51 +4,51 @@ const listaProductos =
     [
         {
             "id": 1,
-            "nombre": "Elemento1",
+            "nombre": "Escritorio Regulable Blanco",
             "img": "media/regulable-blanco.jpg",
             "desc": "Realizado en hierro blanco y madera.",
-            "precio": 1,
-            "stock": 1
+            "precio": 60000,
+            "stock": 5
         },
         {
             "id": 2,
-            "nombre": "Elemento2",
+            "nombre": "Escritorio Madera",
             "img": "media/Escritorio-paraiso.jpg",
-            "desc": "Realizado en hierro blanco y madera.",
-            "precio": 1,
-            "stock": 1
+            "desc": "Realizado en madera y melamina beige.",
+            "precio": 80000,
+            "stock": 5
         },
         {
             "id": 3,
-            "nombre": "Elemento3",
+            "nombre": "Escritorio Negro",
             "img": "media/escritorio negro.jpg",
-            "desc": "Realizado en hierro blanco y madera.",
-            "precio": 1,
-            "stock": 1
+            "desc": "Realizado en madera y estructura de hierro negro.",
+            "precio": 200000,
+            "stock": 5
         },
         {
             "id": 4,
-            "nombre": "Elemento4",
+            "nombre": "Escritorio Gris",
             "img": "media/escritorio-gris.jpg",
-            "desc": "Realizado en hierro blanco y madera.",
-            "precio": 1,
-            "stock": 1
+            "desc": "Realizado en madera y estructura de hierro gris.",
+            "precio": 10000,
+            "stock": 10
         },
         {
             "id": 5,
-            "nombre": "Elemento5",
+            "nombre": "Escritorio Blanco",
             "img": "media/escritorio blanco.jpg",
-            "desc": "Realizado en hierro blanco y madera.",
-            "precio": 1,
-            "stock": 1
+            "desc": "Realizado en madera y melamina blanca.",
+            "precio": 90000,
+            "stock": 10
         },
         {
             "id": 6,
-            "nombre": "Elemento6",
+            "nombre": "Escritorio Regulable Madera",
             "img": "media/regulable-madera.jpg",
-            "desc": "Realizado en hierro blanco y madera.",
-            "precio": 1,
-            "stock": 1
+            "desc": "Realizado en madera y estructura de hierro negro.",
+            "precio": 50000,
+            "stock": 10
         },
 
     ]
@@ -58,8 +58,11 @@ const listaProductos =
 console.log(listaProductos)
 let catalog = document.getElementById('itemList')
 let cart = document.getElementById('cart')
+let total= document.getElementById('total')
 let cartList = []
-
+let precioTotal = 0
+loadCartFromStorage()
+renderCart()
 listaProductos.forEach((prod) => {
 
     // <div class="col-sm-12 col-md-6 col-xl-4"> //container
@@ -124,7 +127,7 @@ listaProductos.forEach((prod) => {
 function addItem(event) {
     cartList.push(event.target.getAttribute('mark'))
     renderCart()
-
+    saveCartToStorage()
 }
 
 function renderCart() {
@@ -141,7 +144,6 @@ function renderCart() {
         let cantidad = cartList.reduce((total, id) => {
             return id === cartElementId ? total += 1 : total
         }, 0)
-        console.log(item)
 
         //Page Frame
         let container = document.createElement('div')
@@ -167,7 +169,8 @@ function renderCart() {
         //Card text
         let text = document.createElement('p')
         text.classList.add('card-text')
-        text.innerText = item[0].desc
+        text.innerText = `$${item[0].precio*cantidad}`
+
 
         //Button frame
         let buttonFrame = document.createElement('div')
@@ -175,12 +178,25 @@ function renderCart() {
 
         //Button
         let button = document.createElement('button')
-        button.classList.add('btn', 'btn-primary', 'btn-sm')
-        button.innerText = 'Comprar'
+        button.classList.add('btn', 'btn-danger', 'btn-sm')
+        button.innerText = 'Eliminar Todo'
         button.type = 'button'
-        button.setAttribute('mark', item[0].id)
-
+        button.dataset.id = item[0].id
+        button.addEventListener('click',eliminarTodos)
         buttonFrame.append(button)
+
+      //Button frame
+      let buttonFrame2 = document.createElement('div')
+      buttonFrame2.classList.add('col-md-4')
+
+      //Button2
+      let button2 = document.createElement('button')
+      button2.classList.add('btn', 'btn-danger', 'btn-sm')
+      button2.innerText = 'Remover'
+      button2.type = 'button'
+      button2.dataset.id = item[0].id
+      button2.addEventListener('click',removerElemento)
+      buttonFrame2.append(button2)
 
         cardBody.append(title)
         cardBody.append(text)
@@ -189,28 +205,51 @@ function renderCart() {
         bodyFrame.append(cardBody)
         container.append(imageFrame)
         container.append(bodyFrame)
+        container.append(buttonFrame2)
         container.append(buttonFrame)
         cart.append(container)
 
     })
+    total.innerText = `Total: $${calcularTotal()}`
+}
 
+function eliminarTodos(event) {
+    cartList = cartList.filter((item) => {
+        return item != event.target.dataset.id
+    })
+
+    renderCart()
+    saveCartToStorage()
+}
+
+function removerElemento(event) {
+    cartList.splice(cartList.indexOf(event.target.dataset.id), 1)
+    renderCart()
+    saveCartToStorage()
+}
+
+function calcularTotal() {
+    return cartList.reduce((total, id) => {
+        let item = listaProductos.filter((producto) => {
+            return producto.id === parseInt(id)
+        })
+        return total + item[0].precio
+    },0)
 }
 
 
-let listaProductosConStock = listaProductos.filter((prod) => prod.stock > 0) //En nuestro caso los stocks son mayores a cero, por lo tanto se muestran en el prompt.
-
-let listaNombres = listaProductosConStock.map((prod) => prod.nombre)
-
-let existe = listaProductos.some(producto => producto.nombre === "Escritorio blanco")
-
-console.log(existe) // Como en nuestro inventario no tenemos disponible escritorio blanco, en consola nos devuelve false.
-
-let precioTotal = 0
 
 
 function precio(cantidad, precio) {
     precioTotal += (cantidad * precio)
 }
 
+function saveCartToStorage(){
+    localStorage.setItem('cartList', JSON.stringify(cartList))
+}
 
-
+function loadCartFromStorage(){
+    if(localStorage.getItem('cartList') !== null){
+        cartList = JSON.parse(localStorage.getItem('cartList'))
+    }
+}
