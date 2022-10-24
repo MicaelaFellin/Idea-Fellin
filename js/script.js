@@ -52,7 +52,8 @@ const listaProductos =
         },
 
     ]
-// CREAR PRODUCTO Y AGRERLO A LA LISTA DE PRODUCTOS
+// CREAR PRODUCTO Y AGREGARLO A LA LISTA DE PRODUCTOS
+
 function agregarProducto(nombre, img, desc, precio, stock) {
     let producto = {}
     producto['id'] = listaProductos.length + 1
@@ -64,7 +65,7 @@ function agregarProducto(nombre, img, desc, precio, stock) {
     listaProductos.push(producto)
 }
 
-agregarProducto('Escritorio Violeta','media/esquinero.jpg','Esquinero',258258,5)
+agregarProducto('Escritorio en L','media/esquinero.jpg','Esquinero',70000,5)
 
 // OBTENEMOS ELEMENTOS DEL HTML (CARDS-CARRITO-TOTAL)
 
@@ -76,15 +77,15 @@ borrarCarrito.addEventListener('click',borrarTodo)
 let searchInput = document.getElementById('searchInput')
 searchInput.addEventListener('input',buscar)
 
-
+// BOTON PARA ELIMINAR TODOS LOS PRODUCTOS DEL CARRITO
 
 function borrarTodo(event){
     cartList = []
     saveCartToStorage()
     renderCart()
-
 }
-let listaProductosFiltrada = listaProductos
+
+let listaProductosFiltrada = listaProductos // VARIABLE PARA FILTRAR LISTA DE PRODUCTOS
 
 // MANEJADOR DE EVENTO INPUT
 
@@ -110,9 +111,7 @@ function buscar(event) {
     listaProductosFiltrada = [...new Set(listaProductosFiltrada)]
     listaProductosFiltrada.sort((a, b) => a.id - b.id) //ordenar lista segun Id
     renderListaProductos(listaProductosFiltrada)
-
 }
-
 
 // LISTA DE CARRITO
 
@@ -120,15 +119,19 @@ let cartList = []
 let precioTotal = 0
 
 // CARGA DE STORAGE Y ACTUALIZACIÓN DEL CARRITO
+
 renderListaProductos(listaProductos)
 loadCartFromStorage()
 renderCart()
 
 // CREANDO LAS CARDS DESDE JS
+
 function renderListaProductos(lista){
     catalog.innerHTML= ''
 
     lista.forEach((prod) => {
+
+//EJEMPLO DE CARD DESDE EL HTML
 
     // <div class="col-sm-12 col-md-6 col-xl-4"> //container
     //     <div class="card mb-3 m-3"> //margen
@@ -165,7 +168,7 @@ function renderListaProductos(lista){
     let text = document.createElement('p')
     text.classList.add('card-text')
     text.innerText = prod.desc
-
+    //Card Precio
     let precio = document.createElement('p')
     precio.classList.add('card-text','cardPrecio')
     precio.innerText = `$${prod.precio.toLocaleString()}`
@@ -183,7 +186,6 @@ function renderListaProductos(lista){
     button.addEventListener('click', addItem)
 
     footer.append(button)
-
     cardBody.append(title)
     cardBody.append(text)
     cardBody.append(precio)
@@ -208,11 +210,11 @@ function addItem(event) {
 function renderCart() {
     cart.innerHTML = ''
 
-    let cartElementIdList = [...new Set(cartList)]
-    //Ordenar elementos segun ID
-    cartElementIdList = cartElementIdList.sort((a, b) => a - b)
+    let cartElementIdList = [...new Set(cartList)] // NUEVO ARRAY SIN PRODUCTOS REPETIDOS
+    
+    cartElementIdList = cartElementIdList.sort((a, b) => a - b) //Ordenar elementos segun ID
 
-    cartElementIdList.forEach((cartElementId) => {
+    cartElementIdList.forEach((cartElementId) => { 
         let item = listaProductos.filter((producto) => {
             return producto.id === parseInt(cartElementId)
         })
@@ -234,7 +236,6 @@ function renderCart() {
         //Card body
         let bodyFrame = document.createElement('div')
         bodyFrame.classList.add('col-md-8')
-
         let cardBody = document.createElement('div')
         cardBody.classList.add('card-body')
         //Card Title
@@ -246,8 +247,7 @@ function renderCart() {
         text.classList.add('card-text')
         text.innerText = `$${(item[0].precio*cantidad).toLocaleString()}`
 
-
-        //Button frame
+        //Button frame 1
         let buttonFrame = document.createElement('div')
         buttonFrame.classList.add('col-md-4')
 
@@ -260,7 +260,7 @@ function renderCart() {
         button.addEventListener('click',eliminarTodos)
         buttonFrame.append(button)
 
-      //Button frame
+      //Button frame 2
       let buttonFrame2 = document.createElement('div')
       buttonFrame2.classList.add('col-md-4')
 
@@ -288,7 +288,7 @@ function renderCart() {
     total.innerText = `Total: $${calcularTotal().toLocaleString()}`
 }
 
-// MANEJADOR DE EVENTO PARA ELIMINAR PRODUCTOS
+// MANEJADOR DE EVENTO PARA ELIMINAR TODOS LOS PRODUCTOS DEL CARRITO
 
 function eliminarTodos(event) {
     cartList = cartList.filter((item) => {
