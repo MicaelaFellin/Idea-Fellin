@@ -56,7 +56,7 @@
                   </li>
                 </ul>
                 <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                  <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                   <button class="btn btn-outline-success bg-light" type="submit">Buscar</button>
                 </form>
               </div>
@@ -65,98 +65,23 @@
     </div>
         
 <section>
-        <aside>
-        <strong><div class="wow animate__animated flash">ELIGE, PAGA Y RECIBE TU PEDIDO SIN MOVERTE DE TU CASA</div></strong>
+        <aside id="asideCart">
+            <h1>Carrito</h1>
+            <div id="cart" class="card mb-3"></div>
+            <div class="box">
+                <div>
+                    <h3 id="total">Total: $0</h3>
+                </div>
+                <div><button class="btn btn-danger btn-sm" id="borrarCarrito">Borrar</button></div>
+            </div>
         </aside>
 
-        <div class="container-fluid">
-            <div class="row p-3 m-5">
+<div class="container-fluid">
+    <div id="itemList" class="row p-3 m-5">
+    </div>
+</div>
 
-                <div class="col-sm-12 col-md-6 col-xl-4">                    
-                    <div class="card mb-3 m-3">
-                            <img src="media/regulable-blanco.jpg" class="card-img-top" alt="Regulable Blanco">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Escritorio Regulable Blanco</h5>
-                            <p class="card-text">Realizado en hierro blanco y madera.</p>
-                            </div>
-                            <div class="card-footer text-center">
-                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
-                            </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="card mb-3 m-3">
-                            <img src="media/Escritorio-paraiso.jpg" class="card-img-top" alt="Escritorio Madera">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Escritorio Madera</h5>
-                            <p class="card-text">Realizado en madera y melamina beige.</p>
-                            </div>
-                            <div class="card-footer text-center">
-                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
-                            </div>
-                        </div>
-                </div>
-
-                <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="card mb-3 m-3">
-                            <img src="media/escritorio negro.jpg" class="card-img-top" alt="Escritorio Negro">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Escritorio Negro</h5>
-                            <p class="card-text">Realizado en madera y estructura de hierro negro.</p>
-                            </div>
-                            <div class="card-footer text-center">
-                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
-                            </div>
-                        </div>
-                </div>
-            </div>
-
-            <div class="row p-3 m-5">
-                <div class="col-sm-12 col-md-6 col-xl-4">
-                    
-                    
-                        <div class="card mb-3 m-3">
-                            <img src="media/escritorio-gris.jpg" class="card-img-top" alt="Escritorio Gris">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Escritorio Gris</h5>
-                            <p class="card-text">Realizado en madera y estructura de hierro gris.</p>
-                            </div>
-                            <div class="card-footer text-center">
-                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
-                            </div>
-                        </div>
-                </div>
-
-                <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="card mb-3 m-3">
-                            <img src="media/escritorio blanco.jpg" class="card-img-top" alt="Escritorio Blanco">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Escritorio Blanco</h5>
-                            <p class="card-text">Realizado en madera y melamina blanca.</p>
-                            </div>
-                            <div class="card-footer text-center">
-                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
-                            </div>
-                        </div>
-                </div>
-
-                <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="card mb-3 m-3">
-                            <img src="media/regulable-madera.jpg" class="card-img-top" alt="Regulable Madera">
-                            <div class="card-body">
-                            <h5 class="card-title text-center">Escritorio Regulable Madera</h5>
-                            <p class="card-text">Realizado en madera y estructura de hierro negro.</p>
-                            </div>
-                            <div class="card-footer text-center">
-                            <button type="button" class="btn btn-primary btn-sm">Comprar</button>
-                            </div>
-                        </div>                    
-                </div>
-            </div>
-        </div>
-
-    
     <div class="pagos">
         <div class="master"><img src="media/mastercard.png" heigth="91px" width="100px" alt="Mastercard"></div>
         <div class="visa"><img src="media/visa.png" heigth="91px" width="100px" alt="Visa"></div>
