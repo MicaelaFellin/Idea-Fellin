@@ -65,24 +65,56 @@ function agregarProducto(nombre, img, desc, precio, stock) {
     listaProductos.push(producto)
 }
 
-agregarProducto('Escritorio en L','media/esquinero.jpg','Esquinero',70000,5)
+agregarProducto('Escritorio en L', 'media/esquinero.jpg', 'Esquinero', 70000, 5)
+
+
+//OBTENER PRODUCTO POR ID
+function getProduct(Id) {
+    let product =  listaProductos.filter((prod) => {
+        return prod.id == Id
+    })
+    return product[0]
+}
 
 // OBTENEMOS ELEMENTOS DEL HTML (CARDS-CARRITO-TOTAL)
 
 let catalog = document.getElementById('itemList')
 let cart = document.getElementById('cart')
-let total= document.getElementById('total')
+let total = document.getElementById('total')
 let borrarCarrito = document.getElementById('borrarCarrito')
-borrarCarrito.addEventListener('click',borrarTodo)
+borrarCarrito.addEventListener('click', borrarTodo)
 let searchInput = document.getElementById('searchInput')
-searchInput.addEventListener('input',buscar)
+searchInput.addEventListener('input', buscar)
 
 // BOTON PARA ELIMINAR TODOS LOS PRODUCTOS DEL CARRITO
 
-function borrarTodo(event){
-    cartList = []
-    saveCartToStorage()
-    renderCart()
+function borrarTodo(event) {
+
+    Swal.fire({
+        title: `Estas seguro que quieres vaciar el carrito`,
+        text: "No podras revertir esto",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            cartList = []
+            saveCartToStorage()
+            renderCart()
+
+            Swal.fire({
+                title: 'El carrito esta vacio',
+                timer: 1200,
+                icon: "success",
+                showConfirmButton: false})
+        }
+      })
+
+
+
 }
 
 let listaProductosFiltrada = listaProductos // VARIABLE PARA FILTRAR LISTA DE PRODUCTOS
@@ -126,82 +158,96 @@ renderCart()
 
 // CREANDO LAS CARDS DESDE JS
 
-function renderListaProductos(lista){
-    catalog.innerHTML= ''
+function renderListaProductos(lista) {
+    catalog.innerHTML = ''
 
     lista.forEach((prod) => {
 
-//EJEMPLO DE CARD DESDE EL HTML
+        //EJEMPLO DE CARD DESDE EL HTML
 
-    // <div class="col-sm-12 col-md-6 col-xl-4"> //container
-    //     <div class="card mb-3 m-3"> //margen
-    //         <img src="media/regulable-blanco.jpg" class="card-img-top" alt="Regulable Blanco"> //imagen
-    //         <div class="card-body"> //cardBody
-    //             <h5 class="card-title text-center">Escritorio Regulable Blanco</h5> //title
-    //             <p class="card-text">Realizado en hierro blanco y madera.</p> //text
-    //         </div>
-    //         <div class="card-footer text-center"> //footer
-    //             <button type="button" class="btn btn-primary btn-sm">Comprar</button> //button
-    //         </div>
-    //     </div>
-    // </div>
+        // <div class="col-sm-12 col-md-6 col-xl-4"> //container
+        //     <div class="card mb-3 m-3"> //margen
+        //         <img src="media/regulable-blanco.jpg" class="card-img-top" alt="Regulable Blanco"> //imagen
+        //         <div class="card-body"> //cardBody
+        //             <h5 class="card-title text-center">Escritorio Regulable Blanco</h5> //title
+        //             <p class="card-text">Realizado en hierro blanco y madera.</p> //text
+        //         </div>
+        //         <div class="card-footer text-center"> //footer
+        //             <button type="button" class="btn btn-primary btn-sm">Comprar</button> //button
+        //         </div>
+        //     </div>
+        // </div>
 
-    //Page Frame
-    let container = document.createElement('div')
-    container.classList.add('col-sm-12', 'col-md-6', 'col-xl-4')
-    //Card Frame
-    let margen = document.createElement('div')
-    margen.classList.add('card', 'mb-3', 'm-3')
-    //Image
-    let imagen = document.createElement('img')
-    imagen.classList.add('card-img-top')
-    imagen.setAttribute('src', prod.img)
-    imagen.setAttribute('alt', prod.nombre)
-    //Card body
-    let cardBody = document.createElement('div')
-    cardBody.classList.add('card-body')
-    //Card Title
-    let title = document.createElement('h5')
-    title.classList.add('card-title', 'text-center')
-    title.innerText = `${prod.nombre}`
-    //Card text
-    let text = document.createElement('p')
-    text.classList.add('card-text')
-    text.innerText = prod.desc
-    //Card Precio
-    let precio = document.createElement('p')
-    precio.classList.add('card-text','cardPrecio')
-    precio.innerText = `$${prod.precio.toLocaleString()}`
-    // footer
-    let footer = document.createElement('div')
-    footer.classList.add('card-footer', 'text-center')
+        //Page Frame
+        let container = document.createElement('div')
+        container.classList.add('col-sm-12', 'col-md-6', 'col-xl-4')
+        //Card Frame
+        let margen = document.createElement('div')
+        margen.classList.add('card', 'mb-3', 'm-3')
+        //Image
+        let imagen = document.createElement('img')
+        imagen.classList.add('card-img-top')
+        imagen.setAttribute('src', prod.img)
+        imagen.setAttribute('alt', prod.nombre)
+        //Card body
+        let cardBody = document.createElement('div')
+        cardBody.classList.add('card-body')
+        //Card Title
+        let title = document.createElement('h5')
+        title.classList.add('card-title', 'text-center')
+        title.innerText = `${prod.nombre}`
+        //Card text
+        let text = document.createElement('p')
+        text.classList.add('card-text')
+        text.innerText = prod.desc
+        //Card Precio
+        let precio = document.createElement('p')
+        precio.classList.add('card-text', 'cardPrecio')
+        precio.innerText = `$${prod.precio.toLocaleString()}`
+        // footer
+        let footer = document.createElement('div')
+        footer.classList.add('card-footer', 'text-center')
 
-    //Button
-    let button = document.createElement('button')
-    button.classList.add('btn', 'btn-primary', 'btn-sm')
-    button.innerText = 'Comprar'
-    button.type = 'button'
-    button.setAttribute('productid', prod.id)
-    button.setAttribute('id', `btnComprar-${prod.id}`)
-    button.addEventListener('click', addItem)
+        //Button
+        let button = document.createElement('button')
+        button.classList.add('btn', 'btn-primary', 'btn-sm')
+        button.innerText = 'Comprar'
+        button.type = 'button'
+        button.setAttribute('productid', prod.id)
+        button.setAttribute('id', `btnComprar-${prod.id}`)
+        button.addEventListener('click', addItem)
 
-    footer.append(button)
-    cardBody.append(title)
-    cardBody.append(text)
-    cardBody.append(precio)
-    margen.append(imagen)
-    margen.append(cardBody)
-    margen.append(footer)
-    container.append(margen)
-    catalog.append(container)
-})
+        footer.append(button)
+        cardBody.append(title)
+        cardBody.append(text)
+        cardBody.append(precio)
+        margen.append(imagen)
+        margen.append(cardBody)
+        margen.append(footer)
+        container.append(margen)
+        catalog.append(container)
+    })
 }
 // MANEJADOR DE EVENTO BOTON COMPRAR Y GUARDADO EN STORAGE
 
 function addItem(event) {
-    cartList.push(event.target.getAttribute('productid'))
+    let productId = event.target.getAttribute('productid')
+    cartList.push(productId)
+    let product = getProduct(productId)
     renderCart()
     saveCartToStorage()
+    Toastify({
+        text: `Añadiste ${product.nombre} al carrito`,
+        avatar: `${product.img}`, // Image/icon to be shown before text
+        duration: 1000,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        }
+    }).showToast();
+
 }
 
 
@@ -211,10 +257,10 @@ function renderCart() {
     cart.innerHTML = ''
 
     let cartElementIdList = [...new Set(cartList)] // NUEVO ARRAY SIN PRODUCTOS REPETIDOS
-    
+
     cartElementIdList = cartElementIdList.sort((a, b) => a - b) //Ordenar elementos segun ID
 
-    cartElementIdList.forEach((cartElementId) => { 
+    cartElementIdList.forEach((cartElementId) => {
         let item = listaProductos.filter((producto) => {
             return producto.id === parseInt(cartElementId)
         })
@@ -245,7 +291,7 @@ function renderCart() {
         //Card text
         let text = document.createElement('p')
         text.classList.add('card-text')
-        text.innerText = `$${(item[0].precio*cantidad).toLocaleString()}`
+        text.innerText = `$${(item[0].precio * cantidad).toLocaleString()}`
 
         //Button frame 1
         let buttonFrame = document.createElement('div')
@@ -257,21 +303,21 @@ function renderCart() {
         button.innerText = 'Eliminar Todo'
         button.type = 'button'
         button.dataset.id = item[0].id
-        button.addEventListener('click',eliminarTodos)
+        button.addEventListener('click', eliminarTodos)
         buttonFrame.append(button)
 
-      //Button frame 2
-      let buttonFrame2 = document.createElement('div')
-      buttonFrame2.classList.add('col-md-4')
+        //Button frame 2
+        let buttonFrame2 = document.createElement('div')
+        buttonFrame2.classList.add('col-md-4')
 
-      //Button2
-      let button2 = document.createElement('button')
-      button2.classList.add('btn', 'btn-danger', 'btn-sm')
-      button2.innerText = 'Remover'
-      button2.type = 'button'
-      button2.dataset.id = item[0].id
-      button2.addEventListener('click',removerElemento)
-      buttonFrame2.append(button2)
+        //Button2
+        let button2 = document.createElement('button')
+        button2.classList.add('btn', 'btn-danger', 'btn-sm')
+        button2.innerText = 'Remover'
+        button2.type = 'button'
+        button2.dataset.id = item[0].id
+        button2.addEventListener('click', removerElemento)
+        buttonFrame2.append(button2)
 
         cardBody.append(title)
         cardBody.append(text)
@@ -288,23 +334,66 @@ function renderCart() {
     total.innerText = `Total: $${calcularTotal().toLocaleString()}`
 }
 
-// MANEJADOR DE EVENTO PARA ELIMINAR TODOS LOS PRODUCTOS DEL CARRITO
+// MANEJADOR DE EVENTO PARA ELIMINAR TODOS LOS ELEMENTOS DE UN PRODUCTO
 
 function eliminarTodos(event) {
-    cartList = cartList.filter((item) => {
-        return item != event.target.dataset.id
-    })
+let product = getProduct(event.target.dataset.id)
+    Swal.fire({
+        title: `Estas seguro que quieres eliminar todos los ${product.nombre}`,
+        text: "No podras revertir esto",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            cartList = cartList.filter((item) => {
+                return item != product.id.toString()
+            })
+            renderCart()
+            saveCartToStorage()
 
-    renderCart()
-    saveCartToStorage()
+            Swal.fire({
+                title: 'Eliminado',
+                text: `Removiste ${product.nombre}`,
+                timer: 1200,
+                icon: "success",
+                showConfirmButton: false})
+        }
+      })
+
+
 }
 
 // MANEJADOR DE EVENTO PARA ELIMINAR 1 UNIDAD DE PRODUCTO
 
 function removerElemento(event) {
-    cartList.splice(cartList.indexOf(event.target.dataset.id), 1)
-    renderCart()
-    saveCartToStorage()
+    let product = getProduct(event.target.dataset.id)
+    Swal.fire({
+        title: `Estas seguro que quieres eliminar ${product.nombre}`,
+        text: "No podras revertir esto",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            cartList.splice(cartList.indexOf(product.id.toString()), 1)
+            renderCart()
+            saveCartToStorage()
+
+            Swal.fire({
+                title: 'Eliminado',
+                text: `Removiste ${product.nombre}`,
+                timer: 1200,
+                icon: "success",
+                showConfirmButton: false})
+        }
+      })
 }
 
 // CALCULO DE PRECIO TOTAL DE COMPRA
@@ -315,17 +404,17 @@ function calcularTotal() {
             return producto.id === parseInt(id)
         })
         return total + item[0].precio
-    },0)
+    }, 0)
 }
 
 // JSON Y STORAGE
 
-function saveCartToStorage(){
+function saveCartToStorage() {
     localStorage.setItem('cartList', JSON.stringify(cartList))
 }
 
-function loadCartFromStorage(){
-    if(localStorage.getItem('cartList') !== null){
+function loadCartFromStorage() {
+    if (localStorage.getItem('cartList') !== null) {
         cartList = JSON.parse(localStorage.getItem('cartList'))
     }
 }
