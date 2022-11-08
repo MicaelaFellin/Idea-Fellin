@@ -1,57 +1,19 @@
-// ARRAY DE PRODUCTOS
+let listaProductosFiltrada = []
+let listaProductos = []
+// FETCH LISTA DE PRODUCTOS
 
-const listaProductos =
-    [
-        {
-            "id": 1,
-            "nombre": "Escritorio Regulable Blanco",
-            "img": "media/regulable-blanco.jpg",
-            "desc": "Realizado en hierro blanco y madera.",
-            "precio": 60000,
-            "stock": 5
-        },
-        {
-            "id": 2,
-            "nombre": "Escritorio Madera",
-            "img": "media/Escritorio-paraiso.jpg",
-            "desc": "Realizado en madera y melamina beige.",
-            "precio": 80000,
-            "stock": 5
-        },
-        {
-            "id": 3,
-            "nombre": "Escritorio Negro",
-            "img": "media/escritorio negro.jpg",
-            "desc": "Realizado en madera y estructura de hierro negro.",
-            "precio": 200000,
-            "stock": 5
-        },
-        {
-            "id": 4,
-            "nombre": "Escritorio Gris",
-            "img": "media/escritorio-gris.jpg",
-            "desc": "Realizado en madera y estructura de hierro gris.",
-            "precio": 10000,
-            "stock": 10
-        },
-        {
-            "id": 5,
-            "nombre": "Escritorio Blanco",
-            "img": "media/escritorio blanco.jpg",
-            "desc": "Realizado en madera y melamina blanca.",
-            "precio": 90000,
-            "stock": 10
-        },
-        {
-            "id": 6,
-            "nombre": "Escritorio Regulable Madera",
-            "img": "media/regulable-madera.jpg",
-            "desc": "Realizado en madera y estructura de hierro negro.",
-            "precio": 50000,
-            "stock": 10
-        },
+fetch('data/listaproductos.json')
+    .then((resp) => resp.json())
+    .then((productos) => {
 
-    ]
+        listaProductos = productos
+        listaProductosFiltrada = productos
+        renderListaProductos(productos)
+        // CARGA DE STORAGE Y ACTUALIZACIÓN DEL CARRITO
+        loadCartFromStorage()
+        renderCart()
+    })
+
 // CREAR PRODUCTO Y AGREGARLO A LA LISTA DE PRODUCTOS
 
 function agregarProducto(nombre, img, desc, precio, stock) {
@@ -74,6 +36,21 @@ function getProduct(Id) {
         return prod.id == Id
     })
     return product[0]
+}
+// FUNCIONES PARA CALCULO DE STOCK
+function restarStock(productId) {
+    let producto = getProduct(productId)
+    if (producto.stock > 0) {
+        producto.stock -= 1
+        return true
+    }
+    return false
+}
+function agregarStock(productId){
+    getProduct(productId).stock +=1
+}
+function restaurarStock(productId,cantidad){
+    getProduct(productId).stock += cantidad
 }
 
 // OBTENEMOS ELEMENTOS DEL HTML (CARDS-CARRITO-TOTAL)
@@ -101,23 +78,37 @@ function borrarTodo(event) {
         confirmButtonText: 'Eliminar'
       }).then((result) => {
         if (result.isConfirmed) {
+            let cartElementIdList = [...new Set(cartList)] // NUEVO ARRAY SIN PRODUCTOS REPETIDOS
+
+            cartElementIdList.forEach((cartElementId) => {
+                let cantidad = cartList.reduce((total, id) => {
+                    return id === cartElementId ? total += 1 : total
+                }, 0)
+                restaurarStock(cartElementId,cantidad)
+            })
+
             cartList = []
             saveCartToStorage()
             renderCart()
-
+            refreshListaProductos()
             Swal.fire({
                 title: 'El carrito esta vacio',
                 timer: 1200,
                 icon: "success",
                 showConfirmButton: false})
         }
+        else
+        {
+            Swal.fire({
+                title: 'No borro nada del carrito',
+                timer: 1200,
+                icon: "success",
+                showConfirmButton: false})
+
+        }
       })
-
-
-
 }
 
-let listaProductosFiltrada = listaProductos // VARIABLE PARA FILTRAR LISTA DE PRODUCTOS
 
 // MANEJADOR DE EVENTO INPUT
 
@@ -150,11 +141,6 @@ function buscar(event) {
 let cartList = []
 let precioTotal = 0
 
-// CARGA DE STORAGE Y ACTUALIZACIÓN DEL CARRITO
-
-renderListaProductos(listaProductos)
-loadCartFromStorage()
-renderCart()
 
 // CREANDO LAS CARDS DESDE JS
 
@@ -204,6 +190,10 @@ function renderListaProductos(lista) {
         let precio = document.createElement('p')
         precio.classList.add('card-text', 'cardPrecio')
         precio.innerText = `$${prod.precio.toLocaleString()}`
+        // card stock
+        let stock = document.createElement('p')
+        stock.classList.add('card-text','cardStock')
+        stock.innerText = `Stock: ${prod.stock}`
         // footer
         let footer = document.createElement('div')
         footer.classList.add('card-footer', 'text-center')
@@ -216,11 +206,16 @@ function renderListaProductos(lista) {
         button.setAttribute('productid', prod.id)
         button.setAttribute('id', `btnComprar-${prod.id}`)
         button.addEventListener('click', addItem)
+        if (prod.stock <= 0) {
+            button.disabled = true
+            button.innerText = 'Sin stock'
+        }
 
         footer.append(button)
         cardBody.append(title)
         cardBody.append(text)
         cardBody.append(precio)
+        cardBody.append(stock)
         margen.append(imagen)
         margen.append(cardBody)
         margen.append(footer)
@@ -228,26 +223,40 @@ function renderListaProductos(lista) {
         catalog.append(container)
     })
 }
+//ACTUALIZAR LISTA DE PRODUCTOS
+function refreshListaProductos(){
+    renderListaProductos(listaProductosFiltrada)
+}
 // MANEJADOR DE EVENTO BOTON COMPRAR Y GUARDADO EN STORAGE
 
 function addItem(event) {
     let productId = event.target.getAttribute('productid')
-    cartList.push(productId)
     let product = getProduct(productId)
-    renderCart()
-    saveCartToStorage()
-    Toastify({
-        text: `Añadiste ${product.nombre} al carrito`,
-        avatar: `${product.img}`, // Image/icon to be shown before text
-        duration: 1000,
-        gravity: "top", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-        }
-    }).showToast();
+    if (restarStock(productId)) {
+        cartList.push(productId)
+        renderCart()
+        refreshListaProductos()
+        saveCartToStorage()
 
+        Toastify({
+            text: `Añadiste ${product.nombre} al carrito`,
+            avatar: `${product.img}`, // Image/icon to be shown before text
+            duration: 1000,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+            }
+        }).showToast();
+
+    }else{
+        Swal.fire({
+            title: 'Error',
+            text: `No hay stock de  ${product.nombre}`,
+            icon: "error"})
+
+    }
 }
 
 
@@ -349,12 +358,18 @@ let product = getProduct(event.target.dataset.id)
         confirmButtonText: 'Eliminar'
       }).then((result) => {
         if (result.isConfirmed) {
+
+            let cantidad = cartList.reduce((total, id) => {
+                return id ==  product.id ? total += 1 : total
+            }, 0)
+
             cartList = cartList.filter((item) => {
                 return item != product.id.toString()
             })
             renderCart()
             saveCartToStorage()
-
+            restaurarStock(product.id,cantidad)
+            refreshListaProductos()
             Swal.fire({
                 title: 'Eliminado',
                 text: `Removiste ${product.nombre}`,
@@ -385,7 +400,8 @@ function removerElemento(event) {
             cartList.splice(cartList.indexOf(product.id.toString()), 1)
             renderCart()
             saveCartToStorage()
-
+            agregarStock(product.id)
+            refreshListaProductos()
             Swal.fire({
                 title: 'Eliminado',
                 text: `Removiste ${product.nombre}`,
