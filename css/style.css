@@ -99,9 +99,13 @@ h1, h2 {
 }
 .cardPrecio{
   font-size: medium;
-
-
 }
+.cardStock{
+  font-size: small;
+  text-align: right;
+}
+
+
 .contact {
   border-style: double;
   border-color: black;
